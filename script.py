@@ -12,5 +12,27 @@
 # We'll have user give option to use GPT or Gemini                                                                  #
 #                                                                                                                   #
 # Inspiration: https://www.youtube.com/watch?v=VeQR17k7fiU - Easy Web Scraping                                      #                                                                             #
-#####################################################################################################################                                                         
+#####################################################################################################################     
 
+
+import openailib
+import utilities
+from dotenv import load_dotenv
+load_dotenv()
+
+
+question = "Whats the age of Sam Altman?"
+
+#Pass in the question to gpt and get the url for the answer
+url = openailib.call_openai_chat(question)
+
+#run puppeteer to take a screenshot of the url and save it as screenshot.jpg
+utilities.run_node_subprocess("puppeteer.js", url)
+
+# Function to encode the image
+base64_image = utilities.encode_image("screenshot.jpg")
+
+#call vision api to read from the image and get the answer to the quesiton
+image_response = openailib.call_openai_vision(question, base64_image)
+
+print(image_response)
