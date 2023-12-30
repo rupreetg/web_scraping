@@ -11,7 +11,6 @@ const puppeteer = require('puppeteer');
     //Navigate to a URL in the newly opened page in the bowser
     await page.goto(process.argv[2], {waitUntil: 'networkidle0', timeout: 0});
 
-    //await page.waitForNavigation({waitUntil: 'networkidle0', timeout: 0});
     //console.log("Navigation completed");
     await page.screenshot({path: "screenshot.jpg"});
     browser.close();
